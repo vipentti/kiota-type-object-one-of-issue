@@ -22,17 +22,24 @@ paths:
               $ref: "#/components/schemas/UsesComponents"
 components:
   schemas:
+
+    # Does not work (Component1) is not generated at all or mentioned in the
+    # generated ExampleWithSingleOneOfWithTypeObject type.
     ExampleWithSingleOneOfWithTypeObject:
       type: object
       oneOf:
         - $ref: "#/components/schemas/Component1"
       discriminator:
         propertyName: objectType
+
+    # Does work (Component2) is generated but ExampleWithSingleOneOfWithoutTypeObject is not
+    # e.g. Component2 is used in place of ExampleWithSingleOneOfWithoutTypeObject
     ExampleWithSingleOneOfWithoutTypeObject:
       oneOf:
         - $ref: "#/components/schemas/Component2"
       discriminator:
         propertyName: objectType
+
     ExampleWithMultipleOneOfWithTypeObject:
       type: object
       oneOf:
@@ -40,12 +47,14 @@ components:
         - $ref: "#/components/schemas/Component4"
       discriminator:
         propertyName: objectType
+
     ExampleWithMultipleOneOfWithoutTypeObject:
       oneOf:
         - $ref: "#/components/schemas/Component5"
         - $ref: "#/components/schemas/Component6"
       discriminator:
         propertyName: objectType
+
     UsesComponents:
       type: object
       properties:
@@ -84,6 +93,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ExampleWithMultipleOneOfWithoutTypeObject"
+
     Component1:
       type: object
       required:
@@ -93,6 +103,7 @@ components:
           type: string
         one:
           type: string
+
     Component2:
       type: object
       required:
@@ -102,6 +113,7 @@ components:
           type: string
         two:
           type: string
+
     Component3:
       type: object
       required:
@@ -111,6 +123,7 @@ components:
           type: string
         three:
           type: string
+
     Component4:
       type: object
       required:
@@ -120,6 +133,7 @@ components:
           type: string
         four:
           type: string
+
     Component5:
       type: object
       required:
@@ -129,6 +143,7 @@ components:
           type: string
         five:
           type: string
+
     Component6:
       type: object
       required:

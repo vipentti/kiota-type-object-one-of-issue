@@ -22,12 +22,18 @@ paths:
               $ref: "#/components/schemas/UsesComponents"
 components:
   schemas:
+
+    # Does not work (Component1) is not generated at all or mentioned in the
+    # generated ExampleWithSingleOneOfWithTypeObject type.
     ExampleWithSingleOneOfWithTypeObject:
       type: object
       oneOf:
         - $ref: "#/components/schemas/Component1"
       discriminator:
         propertyName: objectType
+
+    # Does work (Component2) is generated but ExampleWithSingleOneOfWithoutTypeObject is not
+    # e.g. Component2 is used in place of ExampleWithSingleOneOfWithoutTypeObject
     ExampleWithSingleOneOfWithoutTypeObject:
       oneOf:
         - $ref: "#/components/schemas/Component2"
