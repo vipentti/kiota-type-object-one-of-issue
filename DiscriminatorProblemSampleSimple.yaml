@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  title: "Generator not generating oneOf if the containing schema has type: object"
+  version: "1.0.0"
+servers:
+  - url: https://mytodos.doesnotexist/
+paths:
+  /uses-components:
+    post:
+      description: Return something
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsesComponents"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UsesComponents"
+components:
+  schemas:
+    ExampleWithSingleOneOfWithTypeObject:
+      type: object
+      oneOf:
+        - $ref: "#/components/schemas/Component1"
+      discriminator:
+        propertyName: objectType
+    ExampleWithSingleOneOfWithoutTypeObject:
+      oneOf:
+        - $ref: "#/components/schemas/Component2"
+      discriminator:
+        propertyName: objectType
+
+    UsesComponents:
+      type: object
+      properties:
+        component_with_single_oneof_with_type_object:
+          $ref: "#/components/schemas/ExampleWithSingleOneOfWithTypeObject"
+
+        component_with_single_oneof_without_type_object:
+          $ref: "#/components/schemas/ExampleWithSingleOneOfWithoutTypeObject"
+
+    Component1:
+      type: object
+      required:
+        - objectType
+      properties:
+        objectType:
+          type: string
+        one:
+          type: string
+
+    Component2:
+      type: object
+      required:
+        - objectType
+      properties:
+        objectType:
+          type: string
+        two:
+          type: string

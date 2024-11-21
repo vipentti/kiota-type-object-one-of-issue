@@ -1,0 +1,140 @@
+openapi: 3.0.0
+info:
+  title: "Generator not generating oneOf if the containing schema has type: object"
+  version: "1.0.0"
+servers:
+  - url: https://mytodos.doesnotexist/
+paths:
+  /uses-components:
+    post:
+      description: Return something
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsesComponents"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UsesComponents"
+components:
+  schemas:
+    ExampleWithSingleOneOfWithTypeObject:
+      type: object
+      oneOf:
+        - $ref: "#/components/schemas/Component1"
+      discriminator:
+        propertyName: objectType
+    ExampleWithSingleOneOfWithoutTypeObject:
+      oneOf:
+        - $ref: "#/components/schemas/Component2"
+      discriminator:
+        propertyName: objectType
+    ExampleWithMultipleOneOfWithTypeObject:
+      type: object
+      oneOf:
+        - $ref: "#/components/schemas/Component3"
+        - $ref: "#/components/schemas/Component4"
+      discriminator:
+        propertyName: objectType
+    ExampleWithMultipleOneOfWithoutTypeObject:
+      oneOf:
+        - $ref: "#/components/schemas/Component5"
+        - $ref: "#/components/schemas/Component6"
+      discriminator:
+        propertyName: objectType
+    UsesComponents:
+      type: object
+      properties:
+        component_with_single_oneof_with_type_object:
+          $ref: "#/components/schemas/ExampleWithSingleOneOfWithTypeObject"
+
+        multiple_component_with_single_oneof_with_type_object:
+          minItems: 0
+          type: array
+          items:
+            $ref: "#/components/schemas/ExampleWithSingleOneOfWithTypeObject"
+
+        component_with_single_oneof_without_type_object:
+          $ref: "#/components/schemas/ExampleWithSingleOneOfWithoutTypeObject"
+
+        multiple_component_with_single_oneof_without_type_object:
+          minItems: 0
+          type: array
+          items:
+            $ref: "#/components/schemas/ExampleWithSingleOneOfWithoutTypeObject"
+
+        component_with_multiple_oneof_with_type_object:
+          $ref: "#/components/schemas/ExampleWithMultipleOneOfWithTypeObject"
+
+        multiple_component_with_multiple_oneof_with_type_object:
+          minItems: 0
+          type: array
+          items:
+            $ref: "#/components/schemas/ExampleWithMultipleOneOfWithTypeObject"
+
+        component_with_multiple_oneof_without_type_object:
+          $ref: "#/components/schemas/ExampleWithMultipleOneOfWithoutTypeObject"
+
+        multiple_component_with_multiple_oneof_without_type_object:
+          minItems: 0
+          type: array
+          items:
+            $ref: "#/components/schemas/ExampleWithMultipleOneOfWithoutTypeObject"
+    Component1:
+      type: object
+      required:
+        - objectType
+      properties:
+        objectType:
+          type: string
+        one:
+          type: string
+    Component2:
+      type: object
+      required:
+        - objectType
+      properties:
+        objectType:
+          type: string
+        two:
+          type: string
+    Component3:
+      type: object
+      required:
+        - objectType
+      properties:
+        objectType:
+          type: string
+        three:
+          type: string
+    Component4:
+      type: object
+      required:
+        - objectType
+      properties:
+        objectType:
+          type: string
+        four:
+          type: string
+    Component5:
+      type: object
+      required:
+        - objectType
+      properties:
+        objectType:
+          type: string
+        five:
+          type: string
+    Component6:
+      type: object
+      required:
+        - objectType
+      properties:
+        objectType:
+          type: string
+        six:
+          type: string
