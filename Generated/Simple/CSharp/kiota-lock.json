@@ -2,7 +2,7 @@
   "descriptionHash": "45189F8C70060EDCFC6171A264770EEA23D31BFDB971107D0229E8FDD4DC05B2038095AA5683F8AB55446F47CEDFC552BE4CB50241CBEAF075EBC02D92F4DA00",
   "descriptionLocation": "../../../DiscriminatorProblemSampleSimple.yaml",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.20.0",
+  "kiotaVersion": "1.21.0",
   "clientClassName": "ApiClient",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "ApiSdk",
